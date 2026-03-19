@@ -1,0 +1,51 @@
+{
+  "repo": "D:\\git hackton\\bugtrace-demo-20260318-233657",
+  "good_commit": "d077d133724a31e6f80cdf84b336497aeb3e22e0",
+  "bad_commit": "825a4c16b90b77d6f347f8844041685c0dd17564",
+  "command": "python -m unittest -v",
+  "description": "demo regression",
+  "checked_commits": [
+    {
+      "commit": "825a4c16b90b77d6f347f8844041685c0dd17564",
+      "classification": "bad",
+      "flaky": false,
+      "attempts": [
+        {
+          "attempt": 1,
+          "exit_code": 1,
+          "duration_seconds": 0.257,
+          "stdout": "",
+          "stderr": "test_add (test_calc.CalcTests) ... FAIL\n\n======================================================================\nFAIL: test_add (test_calc.CalcTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Gokul\\AppData\\Local\\Temp\\bugtrace-asxhcim5\\test_calc.py\", line 8, in test_add\n    self.assertEqual(add(2, 2), 4)\nAssertionError: 0 != 4\n\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nFAILED (failures=1)"
+        }
+      ]
+    }
+  ],
+  "first_bad_check": {
+    "commit": "825a4c16b90b77d6f347f8844041685c0dd17564",
+    "classification": "bad",
+    "flaky": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "exit_code": 1,
+        "duration_seconds": 0.257,
+        "stdout": "",
+        "stderr": "test_add (test_calc.CalcTests) ... FAIL\n\n======================================================================\nFAIL: test_add (test_calc.CalcTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"C:\\Users\\Gokul\\AppData\\Local\\Temp\\bugtrace-asxhcim5\\test_calc.py\", line 8, in test_add\n    self.assertEqual(add(2, 2), 4)\nAssertionError: 0 != 4\n\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nFAILED (failures=1)"
+      }
+    ]
+  },
+  "first_bad_commit": {
+    "commit": "825a4c16b90b77d6f347f8844041685c0dd17564",
+    "author": "Codex",
+    "date": "Wed Mar 18 23:36:59 2026 +0530",
+    "subject": "bad commit",
+    "body": "",
+    "summary": "calc.py | 2 +-\n 1 file changed, 1 insertion(+), 1 deletion(-)",
+    "changed_files": [
+      "calc.py"
+    ],
+    "diff": "commit 825a4c16b90b77d6f347f8844041685c0dd17564\nAuthor: Codex <codex@example.com>\nDate:   Wed Mar 18 23:36:59 2026 +0530\n\n    bad commit\n\ndiff --git a/calc.py b/calc.py\nindex 4693ad3..12ee743 100644\n--- a/calc.py\n+++ b/calc.py\n@@ -1,2 +1,2 @@\n def add(a, b):\n-    return a + b\n+    return a - b"
+  },
+  "explanation": "Bug description: demo regression\nThe first commit where `python -m unittest -v` starts failing is 825a4c16b90b (\"bad commit\").\nMost suspicious files: calc.py.\nThe diff touches 1 risk area(s): authentication / secrets. These are common sources of regression.\nThe failing output confirms the regression became observable at this commit.\nWhy it likely happened: this is the earliest commit on the ancestry path where the reproducible check switched from passing to failing, making its code changes the primary suspect. Inspect the diff carefully, especially around the risk areas above.",
+  "explanation_source": "heuristic"
+}
